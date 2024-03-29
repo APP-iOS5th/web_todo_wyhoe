@@ -74,18 +74,13 @@
             removeButton.classList.add('btn','btn-info','btn-sm', 'float-end')
             removeButton.addEventListener('click', function() {
                 todoList.removeChild(item)
-            
-                
+                storeTodos()
             })
 
 
             document.getElementById('inputTodo').value = ''
             item.appendChild(removeButton)
             todoList.appendChild(item)
-            
-
-
-
 
         }
 
