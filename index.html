@@ -1,106 +1,122 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-       <meta charset="utf-8"/>
-       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-       rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
-       crossorigin="anonymous">
-       <title> Todo List </title> 
-    </head>
-    <body>
-        
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-6 bg-secondary-subtle">
-                        <h1 class="mt-5 text-center fw-bold"> <mark>Todo</mark> List </h1>
-                        <blockquote class="blockquote text-end mt-3">
-                            <p> 산다는 것. 그것은 치열한 전투이다.</p>
-                        </blockquote>
-                        <figcaption class="blockquote-footer text-end">
-                            로랑로랑
-                        </figcaption>
-                        
-                        <div class="input-group mb-3 mt-3">
-                            <span class="input-group-text">입력</span>
-                            <input type="text" class="form-control" id="inputTodo" placeholder="엔터도 가능">
-                            <button type="button" class="btn btn-dark" id="inputButton">추가</button>
-                        </div>
-                        <div>
-                            
-                            <ul class="list-group" id="todoList"> 
-                            </ul>
-                        </div>
-                    </div>
+
+<head>
+    <meta charset="utf-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title> Todo List </title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6 bg-secondary-subtle">
+                <h1 class="mt-5 text-center fw-bold"> <mark>Todo</mark> List </h1>
+                <blockquote class="blockquote text-end mt-3">
+                    <p> 산다는 것. 그것은 치열한 전투이다.</p>
+                </blockquote>
+                <figcaption class="blockquote-footer text-end">
+                    로랑로랑
+                </figcaption>
+
+                <div class="input-group mb-3 mt-3">
+                    <span class="input-group-text">입력</span>
+                    <input type="text" class="form-control" id="inputTodo" placeholder="엔터도 가능">
+                    <button type="button" class="btn btn-dark" id="inputButton">추가</button>
                 </div>
+
+                <!--list-->
+                
+                <ul class="list-group" id="todoList">
+                    
+                </ul>
+
             </div>
+        </div>
+    </div>
 
-            
-        
+
+
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        loadTodos()
-    })
+        document.addEventListener('DOMContentLoaded', function () {
+            loadTodos()
+        })
 
-    document.getElementById('inputButton').addEventListener('click', function() {
-        var value = document.getElementById('inputTodo').value
-        if (value) {
-            addTodos(value)
-            storeTodos()
-        }
-    })
-
-    document.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
+        document.getElementById('inputButton').addEventListener('click', function () {
             var value = document.getElementById('inputTodo').value
             if (value) {
                 addTodos(value)
                 storeTodos()
-        }
-        }
-    })
+            }
+        })
+
+        document.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                var value = document.getElementById('inputTodo').value
+                if (value) {
+                    addTodos(value)
+                    storeTodos()
+                }
+            }
+        })
 
 
-    function addTodos(Text) {
-        var todolist = document.getElementById('todoList')
-        var item = document.createElement('li')
-        item.innerText = Text
-        item.classList.add('list-group-item')
-        document.getElementById('inputTodo').value = ''
-        todolist.appendChild(item)
+        function addTodos(Text) {
+            var todoList = document.getElementById('todoList')
+            var item = document.createElement('li')
+            item.innerText = Text
+            item.classList.add('list-group-item')
 
-
-    }
-
-    function storeTodos() {
-        var todos = []
-        var todoList = document.getElementById('todoList')
-        for(var i = 0; i < todoList.children.length; i++ ) {
-            todos.push(todoList.children[i].innerText.trim())
-        }
-        localStorage.setItem('todos', JSON.stringify(todos))    
-    }
-
-
-    function loadTodos() {
-        var todos = JSON.parse(localStorage.getItem('todos'))
-        if (todos) {
-            todos.forEach(function(todo){
-                addTodos(todo)
+            var removeButton = document.createElement('button')
+            removeButton.innerText = 'Remove'
+            removeButton.classList.add('btn','btn-info','btn-sm', 'float-end')
+            removeButton.addEventListener('click', function() {
+                todoList.removeChild(item)
+            
+                
             })
+
+
+            document.getElementById('inputTodo').value = ''
+            item.appendChild(removeButton)
+            todoList.appendChild(item)
+            
+
+
+
+
         }
 
-    }
+        function storeTodos() {
+            var todos = []
+            var todoList = document.getElementById('todoList')
+            for (var i = 0; i < todoList.children.length; i++) {
+                todos.push(todoList.children[i].innerText.trim())
+            }
+            localStorage.setItem('todos', JSON.stringify(todos))
+        }
 
 
+        function loadTodos() {
+            var todos = JSON.parse(localStorage.getItem('todos'))
+            if (todos) {
+                todos.forEach(function (todo) {
+                    addTodos(todo)
+                })
+            }
 
+        }
 
 
 
 
 
     </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    </body>
+</body>
+
 </html>
