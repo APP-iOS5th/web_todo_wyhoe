@@ -10,7 +10,7 @@
 
 <body>
 
-    <div class="container">
+    <div class="container ">
         <div class="row justify-content-center">
             <div class="col-6 bg-secondary-subtle">
                 <h1 class="mt-5 text-center fw-bold"> <mark>Todo</mark> List </h1>
@@ -28,9 +28,9 @@
                 </div>
 
                 <!--list-->
-                
+
                 <ul class="list-group" id="todoList">
-                    
+
                 </ul>
 
             </div>
@@ -66,13 +66,15 @@
         function addTodos(Text) {
             var todoList = document.getElementById('todoList')
             var item = document.createElement('li')
-            item.innerText = Text
-            item.classList.add('list-group-item')
+            var cleanedText = Text.replace(/\nRemove/g, '');
+            item.textContent = cleanedText;
+            item.classList.add('list-group-item');
+            
 
             var removeButton = document.createElement('button')
             removeButton.innerText = 'Remove'
-            removeButton.classList.add('btn','btn-info','btn-sm', 'float-end')
-            removeButton.addEventListener('click', function() {
+            removeButton.classList.add('btn', 'btn-info', 'btn-sm', 'float-end')
+            removeButton.addEventListener('click', function () {
                 todoList.removeChild(item)
                 storeTodos()
             })
@@ -88,7 +90,8 @@
             var todos = []
             var todoList = document.getElementById('todoList')
             for (var i = 0; i < todoList.children.length; i++) {
-                todos.push(todoList.children[i].innerText.trim())
+                var todoText = todoList.children[i].innerText.trim()
+                todos.push(todoText)
             }
             localStorage.setItem('todos', JSON.stringify(todos))
         }
