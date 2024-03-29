@@ -8,19 +8,32 @@
        <title> Todo List </title> 
     </head>
     <body>
-        <div class="container"></div>
-            <h1> Toto List </h1>
-            <div class="input-group mb-3">
-                <span class="input-group-text">입력</span>
-                <input type="text" class="form-control" id="inputTodo" placeholder="해야 할 일">
-                <button type="button" class="btn" id="inputButton">추가</button>
-
+        
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-6 bg-secondary-subtle">
+                        <h1 class="mt-5 text-center fw-bold"> <mark>Todo</mark> List </h1>
+                        <blockquote class="blockquote text-end mt-3">
+                            <p> 산다는 것. 그것은 치열한 전투이다.</p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer text-end">
+                            로랑로랑
+                        </figcaption>
+                        
+                        <div class="input-group mb-3 mt-3">
+                            <span class="input-group-text">입력</span>
+                            <input type="text" class="form-control" id="inputTodo" placeholder="해야 할 일">
+                            <button type="button" class="btn btn-dark" id="inputButton">추가</button>
+                        </div>
+                        <div>
+                            
+                            <ul class="list-group" id="todoList"> 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <ul class="list-group" id="todoList"> 
-
-            </ul>
-        </div>
-
+        
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         loadTodos()
@@ -42,6 +55,7 @@
         item.classList.add('list-group-item')
         document.getElementById('inputTodo').value = ''
         todolist.appendChild(item)
+
 
     }
 
